@@ -53,7 +53,7 @@ public class StudentController {
         return  new Student(id, firstName, lastName);
     }
 
-    // Spring boot Rest API with HTTP Post Request
+    // Spring boot Rest API with HTTP Post Request - Creating new resources
     // @PostMapping and @RequestBody
 
     @PostMapping("students/create")
@@ -64,4 +64,24 @@ public class StudentController {
         System.out.println(student.getLastName());
         return student;
     }
+
+    // Spring boot Rest API with HTTP Put Request - Updating old/existing resources
+    // @PutMapping, @RequestBody and @PathVariable
+    @PutMapping("students/{id}/update")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Student updateStudent(@RequestBody Student student, @PathVariable("id") int studentId) {
+        System.out.println(student.getFirstName());
+        System.out.println(student.getFirstName());
+        return student;
+    }
+
+    // Spring boot Rest API with HTTP Delete Request - Deleting old/existing resources
+    // @DeleteMapping and @PathVariable
+    @DeleteMapping("student/{id}/delete")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public String deleteStudent(@PathVariable("id") int studentId) {
+        System.out.println(studentId);
+        return "Student Deleted Successfully";
+    }
+
 }
