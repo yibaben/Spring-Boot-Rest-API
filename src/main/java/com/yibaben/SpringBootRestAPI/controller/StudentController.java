@@ -2,6 +2,7 @@ package com.yibaben.SpringBootRestAPI.controller;
 
 import com.yibaben.SpringBootRestAPI.medel.Student;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class StudentController {
 
     // Rest API returning a list of student objects.
 
-    @GetMapping("students") 
+    @GetMapping("students")
     public List<Student> getStudents(){
         List<Student> students = new ArrayList<>();
         students.add(new Student(1, "Bennett", "Wenifiri"));
@@ -32,5 +33,15 @@ public class StudentController {
         students.add(new Student(4, "Tari", "Bennett"));
 
         return students;
+    }
+
+    // Spring Boot RestAPI with pathVariable
+    // {id} is the URI Template variable
+
+    @GetMapping("student/{id}/{first-name}/{last-name}")
+    public Student studentPathVariable(@PathVariable("id") int studentId,
+                                       @PathVariable("first-name") String firstName,
+                                       @PathVariable("last-name") String lastName) {
+        return new Student(studentId, firstName, lastName);
     }
 }
