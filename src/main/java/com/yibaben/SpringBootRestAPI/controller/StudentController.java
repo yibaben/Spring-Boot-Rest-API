@@ -49,7 +49,9 @@ public class StudentController {
     // Spring boot RestApi with RequestParam annotation
     // http://localhost:8080/students/query?id=1
     @GetMapping("students/query")
-    public Student studentRequest(@RequestParam int id){
-        return  new Student(1, "Bennett", "Yibaben");
+    public Student studentRequest(@RequestParam int id,
+                                  @RequestParam String firstName,
+                                  @RequestParam String lastName){
+        return  new Student(id, firstName, lastName);
     }
 }
