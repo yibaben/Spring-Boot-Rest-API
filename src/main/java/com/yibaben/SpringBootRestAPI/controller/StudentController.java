@@ -4,9 +4,13 @@ import com.yibaben.SpringBootRestAPI.medel.Student;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 public class StudentController {
 
+    // Rest API returning student object as a bean
     @GetMapping("student")
     public Student getStudent() {
         Student student = new Student(
@@ -15,5 +19,18 @@ public class StudentController {
                 "Wenifiri"
         );
         return student;
+    }
+
+    // Rest API returning a list of student objects.
+
+    @GetMapping("students") 
+    public List<Student> getStudents(){
+        List<Student> students = new ArrayList<>();
+        students.add(new Student(1, "Bennett", "Wenifiri"));
+        students.add(new Student(2, "Ebiye", "Ben"));
+        students.add(new Student(3, "Pere", "Freeman"));
+        students.add(new Student(4, "Tari", "Bennett"));
+
+        return students;
     }
 }
