@@ -5,10 +5,7 @@ import com.yibaben.SpringBootRestAPI.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
@@ -21,5 +18,11 @@ public class UserController {
     public ResponseEntity<User> registerUser(@RequestBody User user) {
         User savedUser = userService.register(user);
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
+    }
+
+    @GetMapping("getUser/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable("id") Long userId) {
+        User retrievedUser = userService.getUserById(userId);
+        return new ResponseEntity<>(retrievedUser, HttpStatus.OK);
     }
 }
