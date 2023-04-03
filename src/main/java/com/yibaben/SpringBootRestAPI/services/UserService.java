@@ -1,12 +1,13 @@
 package com.yibaben.SpringBootRestAPI.services;
 
+import com.yibaben.SpringBootRestAPI.dto.UserDto;
 import com.yibaben.SpringBootRestAPI.entity.User;
 
 import java.util.List;
 
 public interface UserService {
 
-    User register(User user);
+    UserDto register(UserDto userDto);
 
     User getUserById(Long userId);
 

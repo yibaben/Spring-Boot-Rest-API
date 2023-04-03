@@ -1,5 +1,6 @@
 package com.yibaben.SpringBootRestAPI.controller;
 
+import com.yibaben.SpringBootRestAPI.dto.UserDto;
 import com.yibaben.SpringBootRestAPI.entity.User;
 import com.yibaben.SpringBootRestAPI.services.UserService;
 import lombok.AllArgsConstructor;
@@ -17,8 +18,8 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("register")
-    public ResponseEntity<User> registerUser(@RequestBody User user) {
-        User savedUser = userService.register(user);
+    public ResponseEntity<UserDto> registerUser(@RequestBody UserDto userDto) {
+        UserDto savedUser = userService.register(userDto);
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
 

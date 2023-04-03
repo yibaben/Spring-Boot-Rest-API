@@ -1,5 +1,6 @@
 package com.yibaben.SpringBootRestAPI.services;
 
+import com.yibaben.SpringBootRestAPI.dto.UserDto;
 import com.yibaben.SpringBootRestAPI.entity.User;
 import com.yibaben.SpringBootRestAPI.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -14,8 +15,23 @@ public class UserServiceImp implements UserService {
 
     private final UserRepository userRepository;
     @Override
-    public User register(User user) {
-        return userRepository.save(user);
+    public UserDto register(UserDto userDto) {
+        // Convert UserDto to User JPA Entity
+        User newUser = new User(
+                userDto.getId(),
+                userDto.getFirstName(),
+                userDto.getLastName(),
+                userDto.getEmail()
+        );
+        User savedUser = userRepository.save(newUser);
+        // Convert User JPA Entity to UserDto
+        UserDto savedUserDto = new UserDto(
+                savedUser.getId(),
+                savedUser.getFirstName(),
+                savedUser.getLastName(),
+                savedUser.getEmail()
+        );
+        return savedUserDto;
     }
 
     @Override
