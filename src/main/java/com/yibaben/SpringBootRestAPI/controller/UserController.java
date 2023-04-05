@@ -1,17 +1,11 @@
 package com.yibaben.SpringBootRestAPI.controller;
 
 import com.yibaben.SpringBootRestAPI.dto.UserDto;
-import com.yibaben.SpringBootRestAPI.entity.User;
-import com.yibaben.SpringBootRestAPI.exception.ErrorDetails;
-import com.yibaben.SpringBootRestAPI.exception.UserNotFoundException;
 import com.yibaben.SpringBootRestAPI.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.WebRequest;
-
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -51,17 +45,5 @@ public class UserController {
     public ResponseEntity<String> deleteUser(@PathVariable("id") Long userId) {
         userService.deleteUser(userId);
         return new ResponseEntity<>("User Deleted Successfully!!!", HttpStatus.OK);
-    }
-    // Method to Handle Specific Exception Related to a Controller
-    @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<ErrorDetails> exceptionHandler(UserNotFoundException exception,
-                                                         WebRequest webRequest){
-        ErrorDetails errorDetails = new ErrorDetails(
-                LocalDateTime.now(),
-                exception.getMessage(),
-                webRequest.getDescription(false),
-                "USER_NOT_FOUND"
-        );
-        return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
 }
