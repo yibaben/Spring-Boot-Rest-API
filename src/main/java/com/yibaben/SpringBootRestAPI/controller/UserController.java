@@ -2,6 +2,7 @@ package com.yibaben.SpringBootRestAPI.controller;
 
 import com.yibaben.SpringBootRestAPI.dto.UserDto;
 import com.yibaben.SpringBootRestAPI.services.UserService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("register")
-    public ResponseEntity<UserDto> registerUser(@RequestBody UserDto userDto) {
+    public ResponseEntity<UserDto> registerUser(@Valid @RequestBody UserDto userDto) {
         UserDto savedUser = userService.register(userDto);
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
@@ -35,7 +36,7 @@ public class UserController {
 
     @PutMapping("updateUser/{id}")
     public ResponseEntity<UserDto> updateUser(@PathVariable("id") Long userId,
-                                           @RequestBody UserDto user) {
+                                           @RequestBody @Valid UserDto user) {
         user.setId(userId);
         UserDto updatedUser = userService.updateUser(user);
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
