@@ -2,6 +2,7 @@ package com.yibaben.SpringBootRestAPI.services;
 
 import com.yibaben.SpringBootRestAPI.dto.UserDto;
 import com.yibaben.SpringBootRestAPI.entity.User;
+import com.yibaben.SpringBootRestAPI.exception.EmailAlreadyExistException;
 import com.yibaben.SpringBootRestAPI.exception.UserNotFoundException;
 import com.yibaben.SpringBootRestAPI.mapper.AutoUserMapper;
 import com.yibaben.SpringBootRestAPI.mapper.UserMapper;
@@ -22,6 +23,10 @@ public class UserServiceImp implements UserService {
     private final ModelMapper modelMapper;
     @Override
     public UserDto register(UserDto userDto) {
+        Optional<User> optionalUser = userRepository.findUserByEmail(userDto.getEmail());
+        if(optionalUser.isPresent()){
+            throw new EmailAlreadyExistException("This Email Already Exist");
+        }
         // Convert UserDto to User JPA Entity Using UserMapper
         // User newUser = UserMapper.mapToUser(userDto);
 
